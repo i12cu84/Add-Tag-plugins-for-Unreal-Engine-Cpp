@@ -77,21 +77,17 @@ The button functions are, in order
 11:
 
 	Export the tag of the selected model to the root directory of the ue project
-
-12:
-
-	Export the label of the selected model in the scenario to the ue project root
 	The format of the export is: 
 	name in the outline - UAID of the model - tag of the model
 	The exported files will be partially named by time, so you don't have to worry about overwriting files
 
-13:
+12:
 
 	Export the labels of all models in the scenario to the ue project root
 	The format of export is the same as above
 	The exported files will be partially named by time, so you don't have to worry about overwriting files
 
-14:
+13:
 
 	Import tags for all models in the ue project from the root directory of the ue project "input.csv"
 	Simply replace the tag of the model that exists in the csv; if it doesn't exist, nothing will change
