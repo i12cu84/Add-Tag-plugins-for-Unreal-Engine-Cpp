@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-TP-Win64-DebugGame.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\chru\Desktop\TagPlus\Intermediate\Build\Win64\x64\TagPlusEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.NonOptimized.ShadowErrors.InclOrderUnreal5_1.h.obj"
+"C:\Users\chru\Desktop\TagPlus\Plugins\TP\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\TP\Module.TP.cpp.obj"
+"C:\Users\chru\Desktop\TagPlus\Plugins\TP\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\TP\Default.rc2.res"
+/OUT:"C:\Users\chru\Desktop\TagPlus\Plugins\TP\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\TP\UnrealEditor-TP-Win64-DebugGame.lib"

@@ -1,0 +1,10 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.TP.cpp.obj": [
+			"TP.cpp.obj",
+			"TPCommands.cpp.obj",
+			"TPStyle.cpp.obj"
+		]
+	}
+}

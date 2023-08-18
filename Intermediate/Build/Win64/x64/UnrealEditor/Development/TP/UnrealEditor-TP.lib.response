@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-TP.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\chru\Desktop\ue5_2_text\Intermediate\Build\Win64\x64\ue5_2_textEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.InclOrderUnreal5_1.h.obj"
+"C:\Users\chru\Desktop\ue5_2_text\Plugins\TP\Intermediate\Build\Win64\x64\UnrealEditor\Development\TP\Module.TP.cpp.obj"
+"C:\Users\chru\Desktop\ue5_2_text\Plugins\TP\Intermediate\Build\Win64\x64\UnrealEditor\Development\TP\Default.rc2.res"
+/OUT:"C:\Users\chru\Desktop\ue5_2_text\Plugins\TP\Intermediate\Build\Win64\x64\UnrealEditor\Development\TP\UnrealEditor-TP.lib"
