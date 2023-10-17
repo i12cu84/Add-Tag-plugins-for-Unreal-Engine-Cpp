@@ -25,6 +25,8 @@
 #include <locale>
 #include <codecvt>
 #include <set>
+#include <omp.h>
+#include <chrono>
 
 #include "../../../Slate/Public/SlateBasics.h"
 #include "../../../../SlateCore/Public/Widgets/SCompoundWidget.h"
@@ -166,7 +168,8 @@ TArray<FString> FTPModule::ReadCSVFile(const FString& FilePath)
 	}
 	for (auto MyString : CSVData)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("MyString: %s"), *MyString);
+		//Load Csv String
+		//UE_LOG(LogTemp, Warning, TEXT("MyString: %s"), *MyString);
 	}
 	return CSVData;
 }
@@ -176,15 +179,21 @@ void FTPModule::InputCSVToTags()
 	UWorld* World = GEditor->GetEditorWorldContext().World();
 	if (World)
 	{
+		int NotFindActors = 0;
 		TArray<AActor*> Actors;
 		UGameplayStatics::GetAllActorsOfClass(World, AActor::StaticClass(), Actors);
 
 		FString ContentPath = FPaths::ProjectDir()+"//input.csv";
 		TArray<FString> LoadTFS = ReadCSVFile(ContentPath);
+
+		auto start_time = std::chrono::high_resolution_clock::now();
+
+#pragma omp parallel for 
 		for (FString InputString : LoadTFS)
 		{
 			TArray<FString> SplittedArray;
 			InputString.ParseIntoArray(SplittedArray, TEXT(","), true);
+			bool ThisTFSLoaded = false;
 			for (AActor* Actor : Actors)
 			{
 				if (SplittedArray[1] == Actor->GetName())
@@ -195,9 +204,26 @@ void FTPModule::InputCSVToTags()
 						AddTags.Add(*SplittedArray[i]);
 					}
 					Actor->Tags = AddTags;
+					ThisTFSLoaded = true;
 				}
+				
+			}
+			if (!ThisTFSLoaded)
+			{
+				NotFindActors++;
+				/*
+				FString Text = InputString;
+				UE_LOG(LogTemp, Warning, TEXT("missing: %s"), *Text);
+				*/
 			}
 		}
+
+		auto end_time = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+		FString DurationCount = FString::Printf(TEXT("%lld"), duration.count());
+		UE_LOG(LogTemp, Warning, TEXT("use time to: %s ms"), *DurationCount);
+		UE_LOG(LogTemp, Warning, TEXT("not find actor num: %d"), NotFindActors);
+
 
 		FText DialogText = FText::Format(
 			LOCTEXT("PluginButtonDialogText", "Recover Done"),
@@ -750,6 +776,9 @@ void FTPModule::But2()
 	{
 		TArray<AActor*> Actors;
 		UGameplayStatics::GetAllActorsOfClass(World, AActor::StaticClass(), Actors);
+		auto start_time = std::chrono::high_resolution_clock::now();
+#pragma omp parallel for 
+
 		for (AActor* Actor : Actors)
 		{
 			FString AddToSaveText = "";
@@ -786,6 +815,11 @@ void FTPModule::But2()
 			CurrentTime.GetHour(), CurrentTime.GetMinute(), CurrentTime.GetSecond());
 
 		SaveDirectory += ".csv";
+
+		auto end_time = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+		FString DurationCount = FString::Printf(TEXT("%lld"), duration.count());
+		UE_LOG(LogTemp, Warning, TEXT("use time to: %s ms"), *DurationCount);
 
 		FFileHelper::SaveStringToFile(FinalString, *SaveDirectory, FFileHelper::EEncodingOptions::ForceUTF8);
 	}
