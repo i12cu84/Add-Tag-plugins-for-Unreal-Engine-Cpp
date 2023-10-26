@@ -1,5 +1,7 @@
 # Add-Tag-plugins-for-Unreal-Engine
 
+[中文说明](https://github.com/i12cu84/Add-Tag-plugins-for-Unreal-Engine-Cpp/blob/main/README(chin).md)
+
 Unreal Engine version 5.2 
 
 Place the file in the project directory Plugins
